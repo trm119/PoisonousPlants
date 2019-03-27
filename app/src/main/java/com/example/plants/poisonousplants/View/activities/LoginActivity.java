@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 
 import com.example.plants.poisonousplants.R;
+import com.example.plants.poisonousplants.View.activities.RegisterActivity;
 import com.example.plants.poisonousplants.View.helpers.DbHelper;
 import com.example.plants.poisonousplants.View.User;
 
