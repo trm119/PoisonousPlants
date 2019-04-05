@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateInput()) {
+                if (isUserInputValid()) {
                     String UserName = editText_userName.getText().toString();
                     String Email = editText_email.getText().toString();
                     String Password = editText_password.getText().toString();
@@ -95,53 +95,68 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    // validate input given by user
-    public boolean validateInput() {
-        boolean isValid = false;
+    public boolean validatePasswordInput() {
+        boolean isValidPass = false;
 
-        //Get values from EditText fields
-        String UserName = editText_userName.getText().toString();
-        String Email = editText_email.getText().toString();
-        String Password = editText_password.getText().toString();
+        //Get values from EditText field
+        String password = editText_password.getText().toString();
+
+        if (password.isEmpty()) {
+            textInput_password.setError("Please enter valid password!");
+        } else {
+            if (password.length() > 5) {
+                isValidPass = true;
+                textInput_password.setError(null);
+            } else {
+                textInput_password.setError("Password is too short!");
+            }
+        }
+
+        return isValidPass;
+    }
+
+    public boolean validateEmailInput() {
+        boolean isValidEmail = false;
+
+        //Get values from EditText field
+        String email = editText_email.getText().toString();
+
+        //Handling validation for email field
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            textInput_email.setError("Please enter valid email!");
+        } else {
+            isValidEmail = true;
+            textInput_email.setError(null);
+        }
+        return isValidEmail;
+    }
+
+    public boolean validateUserNameInput() {
+        boolean isValidUserName = false;
+
+        String userName = editText_userName.getText().toString();
 
         //Handling validation for UserName field
-        if (UserName.isEmpty()) {
-            isValid = false;
+        if (userName.isEmpty()) {
             textInput_userName.setError("Please enter valid username!");
         } else {
-            if (UserName.length() > 5) {
-                isValid = true;
+            if (userName.length() > 4) {
+                isValidUserName = true;
                 textInput_userName.setError(null);
             } else {
-                isValid = false;
                 textInput_userName.setError("Username is too short!");
             }
         }
+        return isValidUserName;
+    }
+    public boolean isUserInputValid() {
+        boolean isValid = false;
 
-        //Handling validation for Email field
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
-            isValid = false;
-            textInput_email.setError("Please enter valid email!");
-        } else {
+        if(validateEmailInput() && validatePasswordInput() && validateUserNameInput()) {
             isValid = true;
-            textInput_email.setError(null);
         }
-
-        //Handling validation for Password field
-        if (Password.isEmpty()) {
-            isValid = false;
-            textInput_password.setError("Please enter valid password!");
-        } else {
-            if (Password.length() > 5) {
-                isValid = true;
-                textInput_password.setError(null);
-            } else {
-                isValid = false;
-                textInput_password.setError("Password is to short!");
-            }
-        }
-
 
         return isValid;
     }
+
 }

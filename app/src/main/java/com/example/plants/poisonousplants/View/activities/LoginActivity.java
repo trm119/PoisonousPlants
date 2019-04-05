@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Check user input
-                if(validateUserInput()) {
+                if(isUserInputValid()) {
 
                     String an_email = editText_email.getText().toString();
                     String a_password = editText_password.getText().toString();
@@ -100,39 +100,52 @@ public class LoginActivity extends AppCompatActivity {
         return result;
     }
 
-    // validate input given by user
-    public boolean validateUserInput() {
-        boolean isValid = false;
+    // validate user password input
+    public boolean validateUserPasswordInput() {
+        boolean isValidPass = false;
 
-        //Get values from EditText fields
-        String email = editText_email.getText().toString();
+        //Get values from EditText field
         String password = editText_password.getText().toString();
 
-        //Handling validation for email field
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            isValid = false;
-            textInputLayout_email.setError("Please enter valid email!");
-        } else {
-            isValid = true;
-            textInputLayout_email.setError(null);
-        }
-
-        //Handling validation for password field
         if (password.isEmpty()) {
-            isValid = false;
             textInputLayout_password.setError("Please enter valid password!");
         } else {
             if (password.length() > 5) {
-                isValid = true;
+                isValidPass = true;
                 textInputLayout_password.setError(null);
             } else {
-                isValid = false;
-                textInputLayout_password.setError("password is to short!");
+                textInputLayout_password.setError("Password is too short!");
             }
+        }
+
+        return isValidPass;
+    }
+
+    public boolean validateUserEmailInput() {
+        boolean isValidEmail = false;
+
+        //Get values from EditText field
+        String email = editText_email.getText().toString();
+
+        //Handling validation for email field
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            textInputLayout_email.setError("Please enter valid email!");
+        } else {
+            isValidEmail = true;
+            textInputLayout_email.setError(null);
+        }
+        return isValidEmail;
+    }
+    public boolean isUserInputValid() {
+        boolean isValid = false;
+
+        if(validateUserEmailInput() && validateUserPasswordInput()) {
+            isValid = true;
         }
 
         return isValid;
     }
+
 }
 
 
