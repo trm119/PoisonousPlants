@@ -19,17 +19,17 @@ import com.example.plants.poisonousplants.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText editText_userName;
-    EditText editText_email;
-    EditText editText_password;
+    private EditText editText_userName;
+    private EditText editText_email;
+    private EditText editText_password;
 
-    TextInputLayout textInput_userName;
-    TextInputLayout textInput_email;
-    TextInputLayout textInput_password;
+    private TextInputLayout textInput_userName;
+    private TextInputLayout textInput_email;
+    private TextInputLayout textInput_password;
 
-    Button register_button;
+    private Button register_button;
 
-     DbHelper db_Helper;
+    private DbHelper db_Helper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
