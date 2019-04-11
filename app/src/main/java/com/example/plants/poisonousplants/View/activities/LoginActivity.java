@@ -1,4 +1,5 @@
 package com.example.plants.poisonousplants.View.activities;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -20,7 +21,6 @@ import com.example.plants.poisonousplants.View.User;
 
 public class LoginActivity extends AppCompatActivity {
 
-
     private EditText editText_email;
     private EditText editText_password;
 
@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button login_button;
     private DbHelper db_Helper;
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +44,11 @@ public class LoginActivity extends AppCompatActivity {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Check user input
-                if(isUserInputValid()) {
 
-                    String an_email = editText_email.getText().toString();
-                    String a_password = editText_password.getText().toString();
+                String an_email = editText_email.getText().toString();
+                String a_password = editText_password.getText().toString();
+
+                if(isUserInputValid(an_email, a_password)) {
 
                     User current_user = db_Helper.authenticateUser((new User(null, null, an_email, a_password)));
 
@@ -58,11 +59,17 @@ public class LoginActivity extends AppCompatActivity {
                     else {
                         Snackbar.make(login_button, "Login failed, please try again.", Snackbar.LENGTH_LONG).show();
                     }
+
+                    openMainActivity();
                 }
             }
         });
 
+    }
 
+    public void openMainActivity(){
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 
     //set Create account TextView text and click event( maltipal colors
@@ -101,11 +108,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // validate user password input
-    public boolean validateUserPasswordInput() {
+    public boolean validateUserPasswordInput(String password) {
         boolean isValidPass = false;
-
-        //Get values from EditText field
-        String password = editText_password.getText().toString();
 
         if (password.isEmpty()) {
             textInputLayout_password.setError("Please enter valid password!");
@@ -121,11 +125,9 @@ public class LoginActivity extends AppCompatActivity {
         return isValidPass;
     }
 
-    public boolean validateUserEmailInput() {
+    public boolean validateUserEmailInput(String email) {
         boolean isValidEmail = false;
 
-        //Get values from EditText field
-        String email = editText_email.getText().toString();
 
         //Handling validation for email field
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -136,15 +138,19 @@ public class LoginActivity extends AppCompatActivity {
         }
         return isValidEmail;
     }
-    public boolean isUserInputValid() {
-        boolean isValid = false;
 
-        if(validateUserEmailInput() && validateUserPasswordInput()) {
+    public boolean isUserInputValid(String email, String password) {
+        boolean isValid = false;
+        //String email = editText_email.getText().toString();
+
+
+        if(validateUserEmailInput(email) && validateUserPasswordInput(password)) {
             isValid = true;
         }
 
         return isValid;
     }
+
 
 }
 
