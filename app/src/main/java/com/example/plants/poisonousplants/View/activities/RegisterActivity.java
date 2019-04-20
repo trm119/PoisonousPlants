@@ -19,17 +19,17 @@ import com.example.plants.poisonousplants.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText editText_userName;
-    EditText editText_email;
-    EditText editText_password;
+    private EditText editText_userName;
+    private EditText editText_email;
+    private EditText editText_password;
 
-    TextInputLayout textInput_userName;
-    TextInputLayout textInput_email;
-    TextInputLayout textInput_password;
+    private TextInputLayout textInput_userName;
+    private TextInputLayout textInput_email;
+    private TextInputLayout textInput_password;
 
-    Button register_button;
+    private Button register_button;
 
-     DbHelper db_Helper;
+    private DbHelper db_Helper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,10 +43,12 @@ public class RegisterActivity extends AppCompatActivity {
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateInput()) {
-                    String UserName = editText_userName.getText().toString();
-                    String Email = editText_email.getText().toString();
-                    String Password = editText_password.getText().toString();
+
+                String UserName = editText_userName.getText().toString();
+                String Email = editText_email.getText().toString();
+                String Password = editText_password.getText().toString();
+
+                if (isUserInputValid(UserName, Email, Password)) {
 
                     //Check in the database is there any user associated with  this email
                     if (!db_Helper.doesEmailExists(Email)) {
@@ -95,53 +97,69 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    // validate input given by user
-    public boolean validateInput() {
-        boolean isValid = false;
+    public boolean validatePasswordInput(String password) {
+        boolean isValidPass = false;
 
-        //Get values from EditText fields
-        String UserName = editText_userName.getText().toString();
-        String Email = editText_email.getText().toString();
-        String Password = editText_password.getText().toString();
+        //Get values from EditText field
+        //String password = editText_password.getText().toString();
+
+        if (password.isEmpty()) {
+            textInput_password.setError("Please enter valid password!");
+        } else {
+            if (password.length() > 5) {
+                isValidPass = true;
+                textInput_password.setError(null);
+            } else {
+                textInput_password.setError("Password is too short!");
+            }
+        }
+
+        return isValidPass;
+    }
+
+    public boolean validateEmailInput(String email) {
+        boolean isValidEmail = false;
+
+        //Get values from EditText field
+        //String email = editText_email.getText().toString();
+
+        //Handling validation for email field
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            textInput_email.setError("Please enter valid email!");
+        } else {
+            isValidEmail = true;
+            textInput_email.setError(null);
+        }
+        return isValidEmail;
+    }
+
+    public boolean validateUserNameInput(String userName) {
+        boolean isValidUserName = false;
+
+        //String userName = editText_userName.getText().toString();
 
         //Handling validation for UserName field
-        if (UserName.isEmpty()) {
-            isValid = false;
+        if (userName.isEmpty()) {
             textInput_userName.setError("Please enter valid username!");
         } else {
-            if (UserName.length() > 5) {
-                isValid = true;
+            if (userName.length() > 4) {
+                isValidUserName = true;
                 textInput_userName.setError(null);
             } else {
-                isValid = false;
                 textInput_userName.setError("Username is too short!");
             }
         }
+        return isValidUserName;
+    }
 
-        //Handling validation for Email field
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
-            isValid = false;
-            textInput_email.setError("Please enter valid email!");
-        } else {
+    public boolean isUserInputValid(String userName, String email, String password) {
+        boolean isValid = false;
+
+        if(validateEmailInput(email) && validatePasswordInput(password) && validateUserNameInput(userName)) {
             isValid = true;
-            textInput_email.setError(null);
         }
-
-        //Handling validation for Password field
-        if (Password.isEmpty()) {
-            isValid = false;
-            textInput_password.setError("Please enter valid password!");
-        } else {
-            if (Password.length() > 5) {
-                isValid = true;
-                textInput_password.setError(null);
-            } else {
-                isValid = false;
-                textInput_password.setError("Password is to short!");
-            }
-        }
-
 
         return isValid;
     }
+
 }
