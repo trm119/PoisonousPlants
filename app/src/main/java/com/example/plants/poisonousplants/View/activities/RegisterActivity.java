@@ -1,5 +1,6 @@
 package com.example.plants.poisonousplants.View.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -48,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String Email = editText_email.getText().toString();
                 String Password = editText_password.getText().toString();
 
+                //remember need to transition to login page after register with an intent
                 if (isUserInputValid(UserName, Email, Password)) {
 
                     //Check in the database is there any user associated with  this email
@@ -80,7 +82,8 @@ public class RegisterActivity extends AppCompatActivity {
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
     }

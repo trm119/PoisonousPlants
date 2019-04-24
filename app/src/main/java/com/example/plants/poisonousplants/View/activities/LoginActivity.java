@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                         Snackbar.make(login_button, "Login failed, please try again.", Snackbar.LENGTH_LONG).show();
                     }
 
-                    openMainActivity();
+                    //openMainActivity();
                 }
             }
         });
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
-
+    // use something like this for transitioning from register to login
     //set Create account TextView text and click event( maltipal colors
     private void initCreateAccTextView() {
         TextView tv_create_acc = (TextView) findViewById(R.id.tv_CreateAccount);
