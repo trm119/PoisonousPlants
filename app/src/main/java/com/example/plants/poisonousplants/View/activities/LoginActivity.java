@@ -54,13 +54,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     if(current_user != null) {
                         Snackbar.make(login_button, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
-
+                        openMainActivity();
                     }
                     else {
-                        Snackbar.make(login_button, "Login failed, please try again.", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(login_button, "Login failed, user does not exist.", Snackbar.LENGTH_LONG).show();
                     }
 
-                    //openMainActivity();
+
                 }
             }
         });
@@ -71,8 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
-    // use something like this for transitioning from register to login
-    //set Create account TextView text and click event( maltipal colors
+
+    //set Create account TextView text and click event
     private void initCreateAccTextView() {
         TextView tv_create_acc = (TextView) findViewById(R.id.tv_CreateAccount);
         tv_create_acc.setText(fromHtml("<font color='#ffffff'>I don't have account yet. </font><font color='#0c0099'>create one</font>"));

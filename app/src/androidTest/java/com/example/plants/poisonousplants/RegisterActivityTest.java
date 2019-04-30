@@ -1,5 +1,7 @@
 package com.example.plants.poisonousplants;
 
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Context;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;
@@ -10,7 +12,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -23,6 +30,8 @@ public class RegisterActivityTest {
     @Rule
     public ActivityTestRule<RegisterActivity> registerActivityRule =
             new ActivityTestRule<>(RegisterActivity.class);
+
+    private Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(LoginActivity.class.getName(), null, false);
 
     @Test
     public void testValidateEmailInput_Format_True() {
@@ -120,6 +129,18 @@ public class RegisterActivityTest {
             }
         });
     }
+
+    @Test
+    public void testLaunchOfLoginActivityOnTextViewClick() {
+
+        assertNotNull(registerActivityRule.getActivity().findViewById(R.id.textViewLogin));
+        onView(withId(R.id.textViewLogin)).perform(click());
+        Activity loginActivity = getInstrumentation().waitForMonitorWithTimeout(monitor, 5000);
+        assertNotNull(loginActivity);
+        loginActivity.finish();
+
+    }
+
 
 }
 

@@ -49,7 +49,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String Email = editText_email.getText().toString();
                 String Password = editText_password.getText().toString();
 
-                //remember need to transition to login page after register with an intent
                 if (isUserInputValid(UserName, Email, Password)) {
 
                     //Check in the database is there any user associated with  this email
@@ -68,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         //Email exists with email input provided so show error user already exist
                         Snackbar.make(register_button, "User already exists with same email ", Snackbar.LENGTH_LONG).show();
+
                     }
 
 

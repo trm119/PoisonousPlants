@@ -1,17 +1,26 @@
 package com.example.plants.poisonousplants;
 
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Context;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import com.example.plants.poisonousplants.View.activities.LoginActivity;
+import com.example.plants.poisonousplants.View.activities.MainActivity;
+import com.example.plants.poisonousplants.View.activities.RegisterActivity;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -24,6 +33,7 @@ public class LoginActivityTest {
     public ActivityTestRule<LoginActivity> loginActivityRule =
             new ActivityTestRule<>(LoginActivity.class);
 
+    Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(RegisterActivity.class.getName(), null, false);
 
     @Test
     public void testValidateEmailInput_Format_True() {
@@ -98,6 +108,21 @@ public class LoginActivityTest {
             }
         });
     }
+
+    @Test
+    public void testLaunchOfRegisterActivityOnTextViewClick() {
+
+        assertNotNull(loginActivityRule.getActivity().findViewById(R.id.tv_CreateAccount));
+        onView(withId(R.id.tv_CreateAccount)).perform(click());
+        Activity registerActivity = getInstrumentation().waitForMonitorWithTimeout(monitor, 5000);
+        assertNotNull(registerActivity);
+        registerActivity.finish();
+
+    }
+
+
+
+
 
 
 }
