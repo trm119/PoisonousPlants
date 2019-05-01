@@ -33,7 +33,7 @@ public class LoginActivityTest {
     public ActivityTestRule<LoginActivity> loginActivityRule =
             new ActivityTestRule<>(LoginActivity.class);
 
-    Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(RegisterActivity.class.getName(), null, false);
+    private Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(RegisterActivity.class.getName(), null, false);
 
     @Test
     public void testValidateEmailInput_Format_True() {

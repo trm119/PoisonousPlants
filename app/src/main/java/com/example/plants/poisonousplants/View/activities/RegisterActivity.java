@@ -48,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String UserName = editText_userName.getText().toString();
                 String Email = editText_email.getText().toString();
                 String Password = editText_password.getText().toString();
+                long user_id ;
 
                 if (isUserInputValid(UserName, Email, Password)) {
 
@@ -55,14 +56,17 @@ public class RegisterActivity extends AppCompatActivity {
                     if (!db_Helper.doesEmailExists(Email)) {
 
                         //Email does not exist now add new user to database
-                        db_Helper.addUser(new User(null, UserName, Email, Password));
+                        user_id = db_Helper.addUser(new User(null, UserName, Email, Password));
                         Snackbar.make(register_button, "User created successfully! Please Login ", Snackbar.LENGTH_LONG).show();
+
+                        /*
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 finish();
                             }
                         }, Snackbar.LENGTH_LONG);
+                        */
                     }else {
 
                         //Email exists with email input provided so show error user already exist

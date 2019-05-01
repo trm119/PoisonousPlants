@@ -41,7 +41,7 @@ public class DbHelper extends SQLiteOpenHelper{
         sqLite_DB.execSQL(" DROP TABLE IF EXISTS " + USERS_TABLE);
     }
 
-    public void addUser(User user) {
+    public long addUser(User user) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -51,6 +51,7 @@ public class DbHelper extends SQLiteOpenHelper{
         values.put(PASSWORD, user.getPassword());
 
         long todo_ID = db.insert(USERS_TABLE, null, values);
+        return todo_ID;
 
     }
 
@@ -90,6 +91,10 @@ public class DbHelper extends SQLiteOpenHelper{
 
         curr.close();
         return false;
+    }
+
+    public String getUserName() {
+        return USER_NAME;
     }
 }
 
