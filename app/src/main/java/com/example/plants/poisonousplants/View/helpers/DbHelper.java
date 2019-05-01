@@ -93,8 +93,5 @@ public class DbHelper extends SQLiteOpenHelper{
         return false;
     }
 
-    public String getUserName() {
-        return USER_NAME;
-    }
 }
 
