@@ -17,7 +17,13 @@ import com.example.plants.poisonousplants.View.helpers.DbHelper;
 
 import com.example.plants.poisonousplants.R;
 
-
+/**
+ * The class represents a Register Activity
+ *
+ * @author  Rogelio Paniagua
+ * @version 1.0
+ * @since   2019-02-27
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText editText_userName;
@@ -32,6 +38,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     private DbHelper db_Helper;
 
+    /** Creates the Register Activity and initializes the widgets
+     * @param savedInstanceState A Bundle object that can restore the
+     * activity to a previous state.
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +90,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    //set Login TextView click event
+    /** Initializes the Login text view click event
+     *
+     */
     private void initializeTextViewLogin() {
         TextView textViewLogin = (TextView) findViewById(R.id.textViewLogin);
         textViewLogin.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +104,8 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    //connect XML views to its Objects
+    /** Connects XML views to their objects
+     */
     private void initViews() {
         editText_email = (EditText) findViewById(R.id.editTextEmail);
         editText_password = (EditText) findViewById(R.id.editTextPassword);
@@ -104,11 +117,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    /** Validates password input from the user.
+     *
+     * @param password A String representing the user's password
+     * @return A boolean determining whether the user's password is valid or not.
+     */
     public boolean validatePasswordInput(String password) {
         boolean isValidPass = false;
-
-        //Get values from EditText field
-        //String password = editText_password.getText().toString();
 
         if (password.isEmpty()) {
             textInput_password.setError("Please enter valid password!");
@@ -124,11 +139,13 @@ public class RegisterActivity extends AppCompatActivity {
         return isValidPass;
     }
 
+    /** Validates email input from the user.
+     *
+     * @param email A String representing the user's email
+     * @return A boolean determining whether the user's email is valid or not.
+     */
     public boolean validateEmailInput(String email) {
         boolean isValidEmail = false;
-
-        //Get values from EditText field
-        //String email = editText_email.getText().toString();
 
         //Handling validation for email field
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -140,10 +157,14 @@ public class RegisterActivity extends AppCompatActivity {
         return isValidEmail;
     }
 
+    /** Validates user name input from the user.
+     *
+     * @param userName A String representing the user's  user name
+     * @return A boolean determining whether the user's user name is valid or not.
+     */
     public boolean validateUserNameInput(String userName) {
         boolean isValidUserName = false;
 
-        //String userName = editText_userName.getText().toString();
 
         //Handling validation for UserName field
         if (userName.isEmpty()) {
@@ -159,6 +180,13 @@ public class RegisterActivity extends AppCompatActivity {
         return isValidUserName;
     }
 
+    /** Validates input from the user
+     *
+     * @param userName A String representing the user's userName
+     * @param email A String representing the user's email.
+     * @param password A String representing the user's password
+     * @return A boolean variable determining whether the user's input is valid or not.
+     */
     public boolean isUserInputValid(String userName, String email, String password) {
         boolean isValid = false;
 

@@ -9,12 +9,10 @@ import android.support.test.runner.AndroidJUnit4;
 import com.example.plants.poisonousplants.View.activities.LoginActivity;
 import com.example.plants.poisonousplants.View.activities.MainActivity;
 import com.example.plants.poisonousplants.View.activities.RegisterActivity;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -25,6 +23,13 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
+/**
+ * The class is used as a Test class for the Login Activity
+ *
+ * @author  Rogelio Paniagua
+ * @version 1.0
+ * @since   2019-04-06
+ */
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityTest {
 
@@ -35,6 +40,9 @@ public class LoginActivityTest {
 
     private Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(RegisterActivity.class.getName(), null, false);
 
+    /** Tests for a valid email input
+     *
+     */
     @Test
     public void testValidateEmailInput_Format_True() {
 
@@ -43,6 +51,9 @@ public class LoginActivityTest {
         assertTrue(result);
     }
 
+    /** Tests for a valid password input
+     *
+     */
     @Test
     public void testValidatePasswordInput_Length_True() {
 
@@ -51,6 +62,9 @@ public class LoginActivityTest {
         assertTrue(result);
     }
 
+    /** Tests for an invalid email input
+     *
+     */
     @Test
     public void testValidateEmailInput_Format_False() {
 
@@ -67,6 +81,9 @@ public class LoginActivityTest {
 
     }
 
+    /** Tests for an invalid password input
+     *
+     */
     @Test
     public void testValidatePasswordInput_Length_False() {
 
@@ -82,6 +99,9 @@ public class LoginActivityTest {
 
     }
 
+    /** Tests for a valid user input
+     *
+     */
     @Test
     public void testValidateUserInput_True() {
 
@@ -91,7 +111,9 @@ public class LoginActivityTest {
         assertTrue(result);
     }
 
-
+    /** Tests for an invalid user input
+     *
+     */
     @Test
     public void testValidateUserInput_False() {
 
@@ -109,6 +131,9 @@ public class LoginActivityTest {
         });
     }
 
+    /** Tests for text view click event
+     * to transition from Login to Register Activity
+     */
     @Test
     public void testLaunchOfRegisterActivityOnTextViewClick() {
 

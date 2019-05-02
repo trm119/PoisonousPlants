@@ -14,6 +14,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 
+/**
+ * The class is used as a Test class for a DbHelper
+ *
+ * @author  Rogelio Paniagua
+ * @version 1.0
+ * @since   2019-04-06
+ */
 public class DBHelperTest extends AndroidTestCase {
 
     private static String mUserName;
@@ -22,6 +29,9 @@ public class DBHelperTest extends AndroidTestCase {
     private static long mID;
 
 
+    /** Tests for successfully adding a user to the DB
+     *
+     */
     public void testAddUser_True() {
         DbHelper dbhelper = new DbHelper(mContext);
 
@@ -36,6 +46,9 @@ public class DBHelperTest extends AndroidTestCase {
         assertTrue(mID != -1);
     }
 
+    /** Tests for successfully authenticating a user in the DB
+     *
+     */
     public void testAuthenticateUser_True() {
 
         mUserName = "user600";
@@ -54,6 +67,10 @@ public class DBHelperTest extends AndroidTestCase {
 
     }
 
+    /** Tests for unsuccessfully authenticating a
+     *  user in the DB
+     *
+     */
     public void testAuthenticateUser_False() {
 
         mUserName = "u1000";
@@ -69,7 +86,10 @@ public class DBHelperTest extends AndroidTestCase {
 
     }
 
-
+    /** Tests for successfully checking if a certain
+     *  email exists in the DB
+     *
+     */
     public void testDoesEmailExist_True() {
 
         DbHelper dbhelper = new DbHelper(mContext);
@@ -86,6 +106,10 @@ public class DBHelperTest extends AndroidTestCase {
 
     }
 
+    /** Tests for successfully checking if a certain
+     *  email does not exist in the DB
+     *
+     */
     public void testDoesEmailExist_False() {
 
         DbHelper dbhelper = new DbHelper(mContext);

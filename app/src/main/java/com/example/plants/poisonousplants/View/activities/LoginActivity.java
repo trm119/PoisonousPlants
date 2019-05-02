@@ -19,6 +19,13 @@ import com.example.plants.poisonousplants.View.activities.RegisterActivity;
 import com.example.plants.poisonousplants.View.helpers.DbHelper;
 import com.example.plants.poisonousplants.View.User;
 
+/**
+ * The class represents a Login Activity
+ *
+ * @author  Rogelio Paniagua
+ * @version 1.0
+ * @since   2019-02-27
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private EditText editText_email;
@@ -29,8 +36,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button login_button;
     private DbHelper db_Helper;
-    Context mContext;
 
+
+    /** Creates the Login Activity and initializes the widgets
+     * @param savedInstanceState A Bundle object that can restore the
+     * activity to a previous state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,12 +78,17 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /** Transitions from this activity to the Main Activity
+     *  using an Intent
+     */
     public void openMainActivity(){
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
 
-    //set Create account TextView text and click event
+    /** Initializes the Register TextView click event
+     *
+     */
     private void initCreateAccTextView() {
         TextView tv_create_acc = (TextView) findViewById(R.id.tv_CreateAccount);
         tv_create_acc.setText(fromHtml("<font color='#ffffff'>I don't have account yet. </font><font color='#0c0099'>create one</font>"));
@@ -85,7 +101,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // connect XML views to its Objects
+    /** Connects XML views to their objects
+     */
     private void initialzeViews() {
         editText_email = (EditText) findViewById(R.id.editText_Email);
         editText_password = (EditText) findViewById(R.id.editText_Password);
@@ -95,7 +112,10 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    //handling fromHtml method deprecation
+    /** Handles fromHtml method deprecation
+     * @param html A String object representing html code
+     * @return A Spanned object representing the result
+     */
     @SuppressWarnings("deprecation")
     public static Spanned fromHtml(String html) {
         Spanned result;
@@ -107,7 +127,11 @@ public class LoginActivity extends AppCompatActivity {
         return result;
     }
 
-    // validate user password input
+    /** Validates password input from the user.
+     *
+     * @param password A String representing the user's password
+     * @return A boolean determining whether the user's password is valid or not.
+     */
     public boolean validateUserPasswordInput(String password) {
         boolean isValidPass = false;
 
@@ -125,6 +149,11 @@ public class LoginActivity extends AppCompatActivity {
         return isValidPass;
     }
 
+    /** Validates email input from the user.
+     *
+     * @param email A String representing the user's email
+     * @return A boolean determining whether the user's email is valid or not.
+     */
     public boolean validateUserEmailInput(String email) {
         boolean isValidEmail = false;
 
@@ -139,6 +168,12 @@ public class LoginActivity extends AppCompatActivity {
         return isValidEmail;
     }
 
+    /** Validates input from the user
+     *
+     * @param email A String representing the user's email.
+     * @param password A String representing the user's password
+     * @return A boolean variable determining whether the user's input is valid or not.
+     */
     public boolean isUserInputValid(String email, String password) {
         boolean isValid = false;
         //String email = editText_email.getText().toString();
