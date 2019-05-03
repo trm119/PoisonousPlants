@@ -1,11 +1,16 @@
 package com.example.plants.poisonousplants.View.activities;
 
+import android.content.Intent;
 import android.hardware.Camera;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.example.plants.poisonousplants.R;
+import com.example.plants.poisonousplants.View.User;
 import com.example.plants.poisonousplants.View.helpers.ShowCamera;
 
 /**
@@ -21,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Camera camera;
     FrameLayout frameLayout;
     ShowCamera showCamera;
+    private Button log_button;
 
     /** On startup, display the camera to the user.
      *@param savedInstanceState A Bundle object that can restore the
@@ -32,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
+        log_button = (Button) findViewById(R.id.log_button);
 
         // open camera
 
@@ -40,9 +47,25 @@ public class MainActivity extends AppCompatActivity {
         showCamera = new ShowCamera(this, camera);
         frameLayout.addView(showCamera);
 
+        log_button.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            openLoginActivity();
+
+        }
+    });
+
+
         // If "failed to connect to camera service", must give app permissions in device settings.
 
     }
 
+    /** Transitions from this activity to the Login Activity
+     *  using an Intent
+     */
+    public void openLoginActivity(){
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+    }
 
 }

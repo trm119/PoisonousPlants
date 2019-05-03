@@ -21,7 +21,7 @@ public class ShowCamera extends SurfaceView implements SurfaceHolder.Callback {
     Camera camera;
     SurfaceHolder holder;
 
-
+  
     /**
      * Creates the container for the camera and displays
      * @param camera Native android camera object
