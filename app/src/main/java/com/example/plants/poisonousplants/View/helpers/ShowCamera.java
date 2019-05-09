@@ -79,7 +79,8 @@ public class ShowCamera extends SurfaceView implements SurfaceHolder.Callback, C
         int rgbLast = rgb2[rgb2.length-1];
         int rgb2ndlast = rgb2[rgb2.length-2];
 
-        inferenceInterface = new TensorFlowInferenceInterface(c.getAssets(), MODEL_FILE);
+        if (inferenceInterface == null)
+            inferenceInterface = new TensorFlowInferenceInterface(c.getAssets(), MODEL_FILE);
         final Operation operation = inferenceInterface.graphOperation("Output");
         final int numClasses = (int) operation.output(0).shape().size(1);
         System.out.println("Num classes: "+Integer.toString(numClasses));
@@ -120,8 +121,20 @@ public class ShowCamera extends SurfaceView implements SurfaceHolder.Callback, C
 
         output[0] = max_out;
         output[1] = max_val;
-        final int random = new Random().nextInt(61) + 20;
-        MainActivity.plant_prediction.setText(Float.toString(max_out));
+
+                /*
+        labelDict = {"almond": 1, "bivy": 2, "blue": 3, "carrot": 4, "elder": 5, "garlic": 6, "Pgrape": 7,
+                "parsnip": 8, "tomatoes": 9, "truemorel": 10, "wildgrape": 11, "berries": 12, "bitter": 13,
+                "camas": 14, "creeper": 15, "hemlock": 16, "horsenettle": 17, "Pivy": 18, "monseed": 19,
+                "morels": 20, "oak": 21, "sumac": 22}
+                */
+
+        String[] plants ={"SweetAlmond", "BostonIvy", "blueberry", "carrot", "BoxElder", "Garlic",
+                            "Grape", "parsnip", "tomatoes", "truemorel", "wildgrape", "(P)berry",
+                            "(P)bitter", "(P)camas", "(P)creeper", "(P)hemlock", "(P)horsenettle",
+                            "(P)PoisonIvy", "(P)monseed", "(P)morels", "(P)PoisonOak", "(P)PoisonSumac"};
+
+        MainActivity.plant_prediction.setText(plants[(int)max_out]);
         MainActivity.plant_val.setText(Float.toString(max_val));
     }
 

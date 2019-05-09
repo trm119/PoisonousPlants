@@ -1,8 +1,12 @@
 package com.example.plants.poisonousplants.View.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -47,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
         plant_prediction = (TextView) findViewById(R.id.textViewPlant);
         plant_val = (TextView) findViewById(R.id.textViewVal);
         plant_prediction.setText("idle...");
+        plant_val.setText("");
+        boolean permissions = false;
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
+        }
+
 
         // open camera
 
