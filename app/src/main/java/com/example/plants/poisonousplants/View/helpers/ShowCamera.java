@@ -36,7 +36,7 @@ public class ShowCamera extends SurfaceView implements SurfaceHolder.Callback, C
     SurfaceHolder holder;
     Context c;
 
-    private final String MODEL_FILE = "file:///android_asset/"+"frozen_CNN_Plants_0e.pb";
+    private final String MODEL_FILE = "file:///android_asset/"+"frozen_CNN_Plants_30e.pb";
     public TensorFlowInferenceInterface inferenceInterface;
     private float[] outputs;
     private String[] outputNames;
