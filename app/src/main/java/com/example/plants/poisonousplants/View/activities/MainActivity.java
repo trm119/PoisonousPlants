@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.FrameLayout;
 
 import com.example.plants.poisonousplants.R;
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout frameLayout;
     ShowCamera showCamera;
     private Button log_button;
+    public static TextView plant_prediction;
+    public static TextView plant_val;
+
 
     /** On startup, display the camera to the user.
      *@param savedInstanceState A Bundle object that can restore the
@@ -37,14 +41,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //TextView plant_prediction;
         frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
         log_button = (Button) findViewById(R.id.log_button);
+        plant_prediction = (TextView) findViewById(R.id.textViewPlant);
+        plant_val = (TextView) findViewById(R.id.textViewVal);
+        plant_prediction.setText("idle...");
 
         // open camera
 
         camera = Camera.open();
 
-        showCamera = new ShowCamera(this, camera);
+        showCamera = new ShowCamera(this, camera, getApplicationContext());
         frameLayout.addView(showCamera);
 
         log_button.setOnClickListener(new View.OnClickListener() {
