@@ -1,0 +1,45 @@
+name: Trigger auto deployment for testsourcetoclouddocker
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ Taylor ]
+    paths:
+    - '//**'
+    - '.github/workflows/testsourcetoclouddocker-AutoDeployTrigger-9ab81bd5-918a-4380-9096-46f2b7326746.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.TESTSOURCETOCLOUDDOCKER_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.TESTSOURCETOCLOUDDOCKER_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.TESTSOURCETOCLOUDDOCKER_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }} 
+          registryUrl: index.docker.io
+          registryUsername: ${{ secrets.TESTSOURCETOCLOUDDOCKER_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.TESTSOURCETOCLOUDDOCKER_REGISTRY_PASSWORD }}
+          containerAppName: testsourcetoclouddocker
+          resourceGroup: tmauldin-test
+          imageToBuild: index.docker.io/testsourcetoclouddocker:${{ github.sha }}
+          dockerfilePath: Dockerfile
+
+
